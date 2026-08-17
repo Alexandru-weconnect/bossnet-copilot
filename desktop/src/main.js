@@ -1,5 +1,6 @@
-import { invoke } from "@tauri-apps/api/core";
-import { listen } from "@tauri-apps/api/event";
+// Tauri v2 exposes __TAURI__ globals when `withGlobalTauri: true` in tauri.conf.json
+const { invoke } = window.__TAURI__.core;
+const { listen } = window.__TAURI__.event;
 
 const $ = (id) => document.getElementById(id);
 const log = (msg, kind = "") => {

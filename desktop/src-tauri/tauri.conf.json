@@ -5,11 +5,11 @@
   "identifier": "ro.bossnet.copilot",
   "build": {
     "frontendDist": "../src",
-    "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "",
     "beforeDevCommand": ""
   },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "label": "main",

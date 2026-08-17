@@ -1,4 +1,4 @@
-import { listen } from "@tauri-apps/api/event";
+const { listen } = window.__TAURI__.event;
 
 const $ = (id) => document.getElementById(id);
 let hideTimer = null;
