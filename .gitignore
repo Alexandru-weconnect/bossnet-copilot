@@ -8,6 +8,9 @@ desktop/src-tauri/target/
 desktop/src-tauri/gen/
 desktop/src-tauri/Cargo.lock
 
+# Build artifacts
+dist/
+
 # OS
 .DS_Store
 Thumbs.db

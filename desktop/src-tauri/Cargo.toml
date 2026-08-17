@@ -29,7 +29,7 @@ env_logger = "0.11"
 # Audio
 cpal = "0.15"
 hound = "3.5"  # WAV writer
-webrtc-vad = "0.4"
+earshot = "0.1"  # pure-Rust port of WebRTC VAD (no C deps)
 
 # Encoding: WebM/Opus not trivial in pure Rust. We ship raw 16kHz mono WAV
 # per utterance (whisper accepts .wav directly). Small overhead but simplest.

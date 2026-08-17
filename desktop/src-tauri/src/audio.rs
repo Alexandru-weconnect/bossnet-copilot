@@ -19,7 +19,7 @@ use crate::ws;
 use crate::StartConfig;
 
 const TARGET_SR: u32 = 16_000;
-const VAD_FRAME_MS: usize = 30; // webrtc-vad supports 10/20/30
+const VAD_FRAME_MS: usize = 30; // earshot (WebRTC VAD) supports 10/20/30
 const VAD_FRAME_SAMPLES: usize = TARGET_SR as usize * VAD_FRAME_MS / 1000; // 480
 const MAX_UTT_MS: u32 = 8_000; // hard flush after 8s of speech
 const MIN_UTT_MS: u32 = 800;   // ignore utterances shorter than this
@@ -295,13 +295,14 @@ fn capture_stream(
     let stream = build(&device, &stream_cfg)?;
     stream.play()?;
 
-    // VAD chunker
-    let mut vad = webrtc_vad::Vad::new_with_mode(match vad_agg {
-        0 => webrtc_vad::VadMode::Quality,
-        1 => webrtc_vad::VadMode::LowBitrate,
-        2 => webrtc_vad::VadMode::Aggressive,
-        _ => webrtc_vad::VadMode::VeryAggressive,
-    });
+    // VAD chunker — earshot is a pure-Rust port of WebRTC VAD
+    let mode = match vad_agg {
+        0 => earshot::VoiceActivityProfile::QUALITY,
+        1 => earshot::VoiceActivityProfile::LBR,
+        2 => earshot::VoiceActivityProfile::AGGRESSIVE,
+        _ => earshot::VoiceActivityProfile::VERY_AGGRESSIVE,
+    };
+    let mut vad = earshot::VoiceActivityDetector::new(mode);
 
     let mut utt_samples: Vec<i16> = Vec::with_capacity(TARGET_SR as usize * 10);
     let mut in_speech = false;
@@ -326,8 +327,9 @@ fn capture_stream(
             continue;
         }
 
+        // earshot: predict_16khz(&[i16]) -> Result<bool, ...>
         let is_voice = vad
-            .is_voice_segment(&frame)
+            .predict_16khz(&frame)
             .unwrap_or(false);
 
         if is_voice {
