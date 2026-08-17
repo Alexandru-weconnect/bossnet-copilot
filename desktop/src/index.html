@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bossnet Copilot</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app">
+  <header class="app__header">
+    <h1>Bossnet Copilot</h1>
+    <span id="conn-status" class="status status--off">offline</span>
+  </header>
+
+  <section class="config">
+    <label class="field">
+      <span>Server WSS</span>
+      <input id="server-url" type="text" placeholder="wss://teambossnet.ro:3003/?t=TOKEN">
+    </label>
+
+    <div class="field-row">
+      <label class="field">
+        <span>Microfon (agent)</span>
+        <select id="mic-device"></select>
+      </label>
+      <label class="field">
+        <span>Loopback (client)</span>
+        <select id="loopback-device"></select>
+      </label>
+    </div>
+
+    <div class="field-row">
+      <label class="field">
+        <span>Chunk max (s)</span>
+        <input id="chunk-seconds" type="number" value="6" min="2" max="15" step="1">
+      </label>
+      <label class="field">
+        <span>VAD agresivitate (0-3)</span>
+        <input id="vad" type="number" value="2" min="0" max="3">
+      </label>
+    </div>
+
+    <div class="actions">
+      <button id="btn-start" class="btn btn--primary">Start apel</button>
+      <button id="btn-stop" class="btn" disabled>Stop</button>
+      <button id="btn-overlay" class="btn">Overlay</button>
+      <button id="btn-reload" class="btn btn--ghost">Reload playbook</button>
+    </div>
+  </section>
+
+  <section class="transcript" id="transcript">
+    <div class="empty">Transcriptul apelului apare aici. Agent = tu (mic). Client = audio de la client (loopback).</div>
+  </section>
+
+  <section class="manual">
+    <div class="manual__title">Input manual (fallback fara STT)</div>
+    <div class="manual__row">
+      <select id="manual-role">
+        <option value="agent">agent</option>
+        <option value="client">client</option>
+      </select>
+      <input id="manual-text" type="text" placeholder="Scrie o replica...">
+      <button id="btn-manual" class="btn btn--sm">Trimite</button>
+    </div>
+  </section>
+
+  <footer class="log" id="log"></footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

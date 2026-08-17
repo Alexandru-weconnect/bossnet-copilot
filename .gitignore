@@ -1,0 +1,24 @@
+# Node
+node_modules/
+npm-debug.log*
+.pnpm-debug.log*
+
+# Rust / Tauri
+desktop/src-tauri/target/
+desktop/src-tauri/gen/
+desktop/src-tauri/Cargo.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Secrets / env
+.env
+.env.local
+*.pfx
+*.p12

@@ -1,0 +1,18 @@
+{
+  "name": "bossnet-copilot",
+  "version": "0.1.0",
+  "description": "Real-time sales copilot backend — Whisper STT + Claude CLI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "form-data": "^4.0.1",
+    "node-fetch": "^2.7.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

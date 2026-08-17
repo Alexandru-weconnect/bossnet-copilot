@@ -1,0 +1,51 @@
+name: Build Windows Desktop
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: desktop
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: desktop/src-tauri
+
+      - name: Install npm deps
+        run: npm install
+
+      - name: Build Tauri app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: desktop
+          tagName: ${{ github.ref_type == 'tag' && github.ref_name || format('v0.1.0-{0}', github.run_number) }}
+          releaseName: 'Bossnet Copilot ${{ github.ref_type == 'tag' && github.ref_name || format('v0.1.0-build{0}', github.run_number) }}'
+          releaseBody: |
+            Windows desktop build (nesignat MVP).
+            Descarca `.msi` sau `.exe` din assets.
+          releaseDraft: false
+          prerelease: ${{ github.ref_type != 'tag' }}
+          args: --bundles nsis,msi

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <title>Overlay</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="overlay">
+  <div class="overlay__card" id="card">
+    <div class="overlay__drag" data-tauri-drag-region>
+      <span class="dot"></span>
+      <span class="label">Bossnet Copilot</span>
+      <span class="tip" id="tip">–</span>
+    </div>
+    <div class="overlay__text" id="text">Astept apel.</div>
+    <div class="overlay__meta">
+      <span id="prio" class="prio prio--medium">medium</span>
+      <span id="reason"></span>
+    </div>
+  </div>
+  <script type="module" src="overlay.js"></script>
+</body>
+</html>

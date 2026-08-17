@@ -1,0 +1,113 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body.app {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+  background: #0e1116;
+  color: #e6e8ee;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto auto;
+  gap: 8px;
+  padding: 10px 12px;
+}
+
+.app__header {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.app__header h1 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: .2px; }
+
+.status {
+  font-size: 11px; padding: 3px 8px; border-radius: 999px;
+  background: #262a34; color: #93a1b3;
+}
+.status--on { background: #133824; color: #62d99d; }
+.status--off { background: #3b1d20; color: #ff7b7b; }
+
+.config { background: #161a22; padding: 10px; border-radius: 10px; display: grid; gap: 8px; }
+.field { display: flex; flex-direction: column; gap: 3px; font-size: 12px; }
+.field > span { color: #8a93a4; font-size: 11px; }
+.field input, .field select {
+  background: #0e1116; color: #e6e8ee; border: 1px solid #2a2f3b;
+  padding: 6px 8px; border-radius: 6px; font-size: 12px; outline: none;
+}
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn {
+  background: #232837; color: #dde3ee; border: 1px solid #2f3546;
+  padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer;
+}
+.btn:hover { background: #2b3143; }
+.btn--primary { background: #2a63e6; border-color: #2a63e6; color: white; }
+.btn--primary:hover { background: #3d75f0; }
+.btn--ghost { background: transparent; }
+.btn--sm { padding: 4px 8px; font-size: 11px; }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.transcript {
+  overflow: auto; background: #0b0e13; border: 1px solid #1a1f29;
+  border-radius: 10px; padding: 8px; font-size: 13px; line-height: 1.4;
+}
+.transcript .empty { color: #4a5060; font-style: italic; }
+.turn { padding: 6px 8px; margin-bottom: 4px; border-radius: 6px; }
+.turn--agent { background: #172032; }
+.turn--client { background: #221820; }
+.turn__role { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: #7c8598; }
+.turn__ts { font-size: 10px; color: #4a5060; margin-left: 6px; }
+.turn__text { margin-top: 2px; }
+
+.manual { background: #161a22; padding: 8px; border-radius: 10px; }
+.manual__title { font-size: 11px; color: #7c8598; margin-bottom: 4px; }
+.manual__row { display: grid; grid-template-columns: 80px 1fr auto; gap: 6px; }
+.manual__row input, .manual__row select {
+  background: #0e1116; color: #e6e8ee; border: 1px solid #2a2f3b;
+  padding: 5px 7px; border-radius: 6px; font-size: 12px;
+}
+
+.log {
+  max-height: 90px; overflow: auto; font-family: ui-monospace, Menlo, monospace;
+  font-size: 10px; color: #566072; background: #0b0e13; border: 1px solid #1a1f29;
+  border-radius: 6px; padding: 6px;
+}
+.log .line { white-space: pre-wrap; }
+.log .line--err { color: #ff7b7b; }
+.log .line--ok { color: #62d99d; }
+
+/* ---- overlay window ---- */
+body.overlay {
+  background: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+  color: white;
+}
+.overlay__card {
+  margin: 8px;
+  background: rgba(14, 17, 22, 0.92);
+  border: 1px solid rgba(120, 140, 200, 0.25);
+  border-radius: 12px;
+  padding: 10px 12px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  transition: opacity .2s;
+}
+.overlay__card.silent { opacity: 0.35; }
+.overlay__drag {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: #8a93a4;
+  cursor: grab; user-select: none;
+}
+.overlay__drag .dot { width: 8px; height: 8px; background: #62d99d; border-radius: 50%; }
+.overlay__drag .label { font-weight: 600; letter-spacing: .3px; }
+.overlay__drag .tip { margin-left: auto; padding: 2px 6px; border-radius: 4px; background: #232837; }
+.overlay__text {
+  margin: 8px 0; font-size: 15px; line-height: 1.35;
+  color: #f2f4f8;
+}
+.overlay__meta {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; color: #7c8598;
+}
+.prio { padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: .3px; font-weight: 600; }
+.prio--high { background: #4a1d20; color: #ff8a90; }
+.prio--medium { background: #2a2f3b; color: #b8c0d0; }
+.prio--low { background: #1a2a1f; color: #78b090; }
